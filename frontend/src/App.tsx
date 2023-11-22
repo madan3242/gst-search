@@ -3,14 +3,19 @@ import Navbar from "./components/Navbar"
 import Search from "./components/Search"
 import axios from "axios";
 
-// type responseType = {
-//   busniess_name: string,
-//   pan: string,
-
-// }
+type responseType = {
+  busniess_name: string,
+  pan: string,
+  address: string,
+  pincode: string
+  nature_of_busniess: string,
+  department_code: string,
+  registration_type: string,
+  registration_date: Date
+}
 const App = () => {
   const [searchText, setSearchText] = useState("");
-  const [response, setResponse] = useState({});
+  const [response, setResponse] = useState<responseType>({});
 
   const searchFunction = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
@@ -27,7 +32,9 @@ const App = () => {
         <Search setSearchText={setSearchText} searchFunction={searchFunction} />
         <div className="text-center">
         <div className="flex justify-center">
-        <div className="w-1/2 h-80 p-3 bg-white rounded">
+        {
+          response?
+          <div className="w-1/2 h-80 p-3 bg-white rounded">
           <h3 className="text-left italic">Search result for: <span className="font-bold">{searchText}</span></h3>
           <div>
             {/* {JSON.stringify(response)} */}
@@ -40,7 +47,8 @@ const App = () => {
             <h2 className="text-xl"><span className="font-bold">Registration Type:</span> {response?.registration_type}</h2> 
             <h2 className="text-xl"><span className="font-bold">Registration date:</span> {response?.registration_date}</h2> 
           </div>
-        </div>
+        </div> : <></>
+        }
         </div>
         </div>
       </div>
