@@ -1,6 +1,6 @@
-import express, {Request, Response, NextFunction} from "express";
+import express from "express";
 import cors from "cors";
-import { GST } from "./gst.model";
+import { GST } from "./gst.model.js";
 
 const app = express();
 
@@ -8,7 +8,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const validateGstNumber = (num: string) => {
+const validateGstNumber = (num) => {
     let gstRegex = /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/
     let busniessNameRegex = /^(?:[A-Za-z]+\s){2}[A-Za-z]+/
 
@@ -38,7 +38,7 @@ const validateGstNumber = (num: string) => {
 //     }
 // })
 
-app.get('/search', async (req: Request, res: Response, next: NextFunction) => {
+app.get('/search', async (req, res, next) => {
     try {
         if (!req.query.gst) {
             return res.status(200).json({
@@ -48,7 +48,7 @@ app.get('/search', async (req: Request, res: Response, next: NextFunction) => {
 
         const searchText = req.query.gst;
 
-        const isGst = validateGstNumber(searchText as string)
+        const isGst = validateGstNumber(searchText)
 
         if(!isGst){
             return res.status(200).json({

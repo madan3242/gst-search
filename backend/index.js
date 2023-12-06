@@ -1,5 +1,5 @@
-import mongoose, { ConnectOptions } from "mongoose";
-import app from "./app";
+import mongoose from "mongoose";
+import app from "./app.js";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -19,7 +19,7 @@ const connectDb = () => {
         .connect('mongodb://0.0.0.0:27017/gst', {
             // useNewUrlParser: true,
             // useUnifiedTopology: true,
-        } as ConnectOptions)
+        })
         .then(() => console.log(`MONGODB CONNECTED SUCCESSFULLY`))
         .catch(error => {
             console.log(`DB CONNECTION FAILED`);
