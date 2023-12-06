@@ -61,7 +61,7 @@ app.get('/search', async (req, res, next) => {
         })
 
         if(!response){
-            res.json(404).json({
+            res.status(404).json({
                 msg: "No data found",
                 response
             })
@@ -71,7 +71,10 @@ app.get('/search', async (req, res, next) => {
             data: response
         })
     } catch (error) {
-        
+        res.status(404).json({
+            msg: "No data found",
+            error
+        })
     }
 
 })
